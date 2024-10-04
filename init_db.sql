@@ -1,0 +1,43 @@
+DROP TABLE IF EXISTS DEPARTMENTS;
+CREATE TABLE DEPARTMENTS(
+ department_id INT,
+ department_name VARCHAR(100) NOT NULL,
+ PRIMARY KEY(department_id)
+);
+
+DROP TABLE IF EXISTS EMPLOYEES;
+CREATE TABLE EMPLOYEES(
+ employee_id INT,
+ department_id INT NOT NULL,
+ role VARCHAR(50) NOT NULL,
+ first_name VARCHAR(100) NOT NULL,
+ last_name VARCHAR(100) NOT NULL,
+ hire_date DATE NOT NULL,
+ PRIMARY KEY(employee_id),
+ FOREIGN KEY(department_id) REFERENCES DEPARTMENTS(department_id)
+);
+
+DROP TABLE IF EXISTS SALARIES;
+CREATE TABLE SALARIES(
+  employee_id INT,
+  salary INT NOT NULL,
+  effective_date DATE NOT NULL,
+  FOREIGN KEY(employee_id) REFERENCES EMPLOYEES(employee_id)
+);
+
+DROP TABLE IF EXISTS PROJECTS;
+CREATE TABLE PROJECTS(
+  project_id INT,
+  project_name VARCHAR(100) NOT NULL,
+  start_date DATE,
+  end_date DATE,
+  PRIMARY KEY(project_id)
+);
+
+DROP TABLE IF EXISTS EMPLOYEE_PROJECTS;
+CREATE TABLE EMPLOYEE_PROJECTS(
+  employee_id INT,
+  project_id INT,
+  FOREIGN KEY(employee_id) REFERENCES EMPLOYEES(employee_id),
+  FOREIGN KEY(project_id) REFERENCES PROJECTS(project_id)
+);
